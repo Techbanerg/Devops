@@ -10,4 +10,6 @@ Below are the list of study materials.
 4. Circle Ci link: https://circleci.com/docs/2.0/
 5. GIt Lab link: https://www.amazon.com/GitLab-Repository-Management-Jonathan-Hethey-ebook/dp/B00GTQD5OC
 6. Groovy link: https://www.amazon.in/Learning-Groovy-Adam-L-Davis-ebook/dp/B01JSUJHS8
+7. AWS solution architect Associate link: https://www.amazon.com/Certified-Solutions-Architect-Official-Study-ebook/dp/B01M6W6WYD
+8. AWS solution architect Professional link: https://www.amazon.com/AWS-Certified-Solutions-Architect-Professional/dp/1642499544
 
