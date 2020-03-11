@@ -15,9 +15,9 @@ This Repository here has the collection of Books that you should read in order t
 8. AWS solution architect Professional link: https://www.amazon.com/AWS-Certified-Solutions-Architect-Professional/dp/1642499544
 9. The Phoenix Project link:https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B00AZRBLHO
 
-**FAQ**
+**Continuous Integration (CI)**
 ---
-## Continuous Integration (CI) ##
+
 + Continuous integration, continuous deployment, and continuous delivery are like vectors that have the  same direction, but different magnitude. Their goal is the same: make our software development and release process faster and more robust.
 + The key difference between the three is in the scope of automation applied. What gets people who are new to the field confused is that they are not mutually exclusive, but include each other, like Russian dolls.
 + Most developers start with Continuous Integration (CI), which is about everyone merging code changes to a central repository multiple times a day. Each merge triggers an automated build and testing sequence for the given project.Depending on the programming language, the program may first need to be compiled. Today there is also an increasing need to package the code in a Docker container. Automated tests then verify specific units of code, UI behavior, application performance, API reliability, and more. Together, all these steps are commonly referred to as the “Build” stage.CI acts as a safety net that lets developers prevent many issues before they reach users. As a result, developers ship code with more confidence, but not necessarily faster — the deployment process may still be manual, long, and error-prone. The best initial investment developers can make is to ensure that their automated test suite is comprehensive and stable enough that they feel safe to deploy every passed CI build to a staging, and later production environment, without a long manual QA (quality assurance) process.
@@ -43,6 +43,9 @@ It’s no secret that testing the same test scripts every day can be a highly mo
 
     - Improved Budget:
     With the increase in delivery velocity and shifting the identification and resolution of coding issues left, teams are saving a lot of time and resources, which all add up to a healthier bottom line.
+
+**Continuous Deployment (CD)**
+---
 
 + In continuous deployment, every change goes through an automated pipeline and a working version of the application is automatically pushed to production. It does not involve any release approval cycle and the project teams need to ensure that every time a code is updated, tested and released, it works smoothly at the customer’s end. Naturally, a lot depends on the quality of the test suite. With continuous deployment, teams can have multiple software deployments on any given day and don’t have to sweat about a major release
 
