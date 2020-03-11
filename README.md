@@ -30,18 +30,13 @@ This Repository here has the collection of Books that you should read in order t
 
 + Key Strengths of Continuous Integration (CI) Testing
 It’s no secret that testing the same test scripts every day can be a highly monotonous duty. Most development teams have found that the automation of test scripts wherever possible goes a long way. Not to mention, it also provides immediate feedback to the developer in mere minutes.
-    - **Issue Resolution**: When the automated test scripts do find an issue in the code, because the code  segments are small, the developers have been able to make quick work of issue identification and resolution.
-
-    - Phased Changeover: With small iterative changes, studies have confirmed that the migration from an old version of the software to a newer version is much easier because the users are eased into the changes, instead of having to learn a new version of the software all at once.
-
-    - Improved Team Morale: Surprisingly, submitting these iterative changes has also improved dev team morale, especially when tasked on larger projects. The reason is that it’s part of our human nature that we like to see accomplishments regularly. Unlike the waterfall methodology, where a large project can drag on for weeks or even months without completing any key milestones, the iterative approach allows developers to achieve multiple milestones per day. This also provides the immediate gratification of seeing their code passing the automated tests several times a day.
-
-    - Increased Velocity: Teams have found that with the iterative changes to the code, automated builds, automated testing, and the rapid identification of issues, the overall velocity of the project delivery is significantly faster in comparison to waterfall methodology.
-
-    - Improved Quality:
+    - __Issue Resolution__ When the automated test scripts do find an issue in the code, because the code  segments are small, the developers have been able to make quick work of issue identification and resolution.
+    - __Phased Changeover__ With small iterative changes, studies have confirmed that the migration from an old version of the software to a newer version is much easier because the users are eased into the changes, instead of having to learn a new version of the software all at once.
+    - __Improved Team Morale__: Surprisingly, submitting these iterative changes has also improved dev team morale, especially when tasked on larger projects. The reason is that it’s part of our human nature that we like to see accomplishments regularly. Unlike the waterfall methodology, where a large project can drag on for weeks or even months without completing any key milestones, the iterative approach allows developers to achieve multiple milestones per day. This also provides the immediate gratification of seeing their code passing the automated tests several times a day.
+    - __Increased Velocity__: Teams have found that with the iterative changes to the code, automated builds, automated testing, and the rapid identification of issues, the overall velocity of the project delivery is significantly faster in comparison to waterfall methodology.
+    - __Improved Quality__:
     Because issues are found and resolved with each sprint, those larger, more comprehensive development issues are substantially mitigated. This is because once a sprint has been deployed, subsequent code iterations are then added to the code that has already been proven to be functionally correct. This eliminates the issue of needing to fix multiple incorrectly developed modules because of a coding issue in a single module.
-
-    - Improved Budget:
+    - __Improved Budget__:
     With the increase in delivery velocity and shifting the identification and resolution of coding issues left, teams are saving a lot of time and resources, which all add up to a healthier bottom line.
 
 **Continuous Deployment (CD)**
@@ -56,3 +51,16 @@ It’s no secret that testing the same test scripts every day can be a highly mo
 + Continuous deployment is the ultimate goal of software development companies. Your company’s development and IT teams must properly prepare to tackle implementing continuous deployment. Production-ready environments and appropriate practices must be put in place to make sure the live environment is up to par. 
 
 + In continuous deployment, codes are run and maintained in a simulated environment, ensuring that the ultimate quality is taken into consideration. Real-time monitoring of the live environment is also a requirement to keep track of any arising issues and resolve them quickly. 
+
++ The key benefits of this are similar to those of CDE. However, there are also others that should be mentioned.
+
+    - __Morphed Migration__
+    The product gets built iteratively in production and more or less morphs from one version to the next. This approach substantially reduces the anxiety that customers have when they are given a whole new version of the software that they now have to learn.
+    Enhanced Delivery Velocity
+    Gone are the days of creating code and lobbing it over the fence to builders, who then bounce it to the testers and so on. With continuous deployment, the developer can check code and get a pass/fail notification within minutes. If an issue is detected, they can resolve it and have the new version submitted and into production within a few minutes. If no issues are detected, the new code is moved automatically into production.
+    - __Shift Left__
+    When a developer checks in code, the automated processes take the code and move it through the entire lifecycle and if it passes each gate, it gets deployed directly to production. This provides the developer with nearly immediate feedback regarding if a code segment has a defect or not. If an issue is detected in the automated tests, the developer is notified and can resolve the issue immediately.
+    - __Expedited Tests__
+    Testing has traditionally been a bottleneck in the development lifecycle. However, with CD, automated tests can be set up throughout the value stream to be as thorough as needed. This means the testing can be set up at the appropriate stages to address the progression of the code throughout the lifecycle. This can include automated unit tests, integration tests, regression tests, performance tests, and so forth. These can be set up and executed at their respective stations in the lifecycle providing a thorough testing framework to ensure quality. However, because the gate management and handoff from one state to the next are also fully automated, the progression of the code through the lifecycle occurs at light speed when compared to the legacy waterfall approach.
+    - __Real World Experimentation__
+    This model also allows for real-world experimentation, such as A/B testing, and allows for immediate consumer feedback. For example, if you need to change the location of a certain feature on a website, but you’re not sure of the best new location, you could make the change, monitor real-time customer usage, and make adjustments accordingly.
