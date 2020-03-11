@@ -3,6 +3,7 @@
 This Repository here has the collection of Books that you should read in order to have profound knowledge of Devops.The copyrights prevented me to upload the ebooks in here. However I have provided the links to buy these ebooks.
 
 ** Below are the list of study materials.**
+---
 
 1. Jenkins link : http://shop.oreilly.com/product/0636920010326.do
 2. Gradle link: https://www.amazon.in/Gradle-Action-Benjamin-Muschko/dp/1617291307
@@ -15,6 +16,7 @@ This Repository here has the collection of Books that you should read in order t
 9. The Phoenix Project link:https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B00AZRBLHO
 
 ** FAQ  **
+---
 
 + Continuous integration, continuous deployment, and continuous delivery are like vectors that have the  same direction, but different magnitude. Their goal is the same: make our software development and release process faster and more robust.
 + The key difference between the three is in the scope of automation applied. What gets people who are new to the field confused is that they are not mutually exclusive, but include each other, like Russian dolls.
@@ -28,19 +30,19 @@ This Repository here has the collection of Books that you should read in order t
 
 + Key Strengths of Continuous Integration (CI) Testing
 It’s no secret that testing the same test scripts every day can be a highly monotonous duty. Most development teams have found that the automation of test scripts wherever possible goes a long way. Not to mention, it also provides immediate feedback to the developer in mere minutes.
-- Issue Resolution: When the automated test scripts do find an issue in the code, because the code  segments are small, the developers have been able to make quick work of issue identification and resolution.
+    - Issue Resolution: When the automated test scripts do find an issue in the code, because the code  segments are small, the developers have been able to make quick work of issue identification and resolution.
 
-- Phased Changeover: With small iterative changes, studies have confirmed that the migration from an old version of the software to a newer version is much easier because the users are eased into the changes, instead of having to learn a new version of the software all at once.
+    - Phased Changeover: With small iterative changes, studies have confirmed that the migration from an old version of the software to a newer version is much easier because the users are eased into the changes, instead of having to learn a new version of the software all at once.
 
-- Improved Team Morale: Surprisingly, submitting these iterative changes has also improved dev team morale, especially when tasked on larger projects. The reason is that it’s part of our human nature that we like to see accomplishments regularly. Unlike the waterfall methodology, where a large project can drag on for weeks or even months without completing any key milestones, the iterative approach allows developers to achieve multiple milestones per day. This also provides the immediate gratification of seeing their code passing the automated tests several times a day.
+    - Improved Team Morale: Surprisingly, submitting these iterative changes has also improved dev team morale, especially when tasked on larger projects. The reason is that it’s part of our human nature that we like to see accomplishments regularly. Unlike the waterfall methodology, where a large project can drag on for weeks or even months without completing any key milestones, the iterative approach allows developers to achieve multiple milestones per day. This also provides the immediate gratification of seeing their code passing the automated tests several times a day.
 
-- Increased Velocity: Teams have found that with the iterative changes to the code, automated builds, automated testing, and the rapid identification of issues, the overall velocity of the project delivery is significantly faster in comparison to waterfall methodology.
+    - Increased Velocity: Teams have found that with the iterative changes to the code, automated builds, automated testing, and the rapid identification of issues, the overall velocity of the project delivery is significantly faster in comparison to waterfall methodology.
 
-- Improved Quality:
-Because issues are found and resolved with each sprint, those larger, more comprehensive development issues are substantially mitigated. This is because once a sprint has been deployed, subsequent code iterations are then added to the code that has already been proven to be functionally correct. This eliminates the issue of needing to fix multiple incorrectly developed modules because of a coding issue in a single module.
+    - Improved Quality:
+    Because issues are found and resolved with each sprint, those larger, more comprehensive development issues are substantially mitigated. This is because once a sprint has been deployed, subsequent code iterations are then added to the code that has already been proven to be functionally correct. This eliminates the issue of needing to fix multiple incorrectly developed modules because of a coding issue in a single module.
 
-- Improved Budget:
-With the increase in delivery velocity and shifting the identification and resolution of coding issues left, teams are saving a lot of time and resources, which all add up to a healthier bottom line.
+    - Improved Budget:
+    With the increase in delivery velocity and shifting the identification and resolution of coding issues left, teams are saving a lot of time and resources, which all add up to a healthier bottom line.
 
 + In continuous deployment, every change goes through an automated pipeline and a working version of the application is automatically pushed to production. It does not involve any release approval cycle and the project teams need to ensure that every time a code is updated, tested and released, it works smoothly at the customer’s end. Naturally, a lot depends on the quality of the test suite. With continuous deployment, teams can have multiple software deployments on any given day and don’t have to sweat about a major release
 
