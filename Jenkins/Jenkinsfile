@@ -1,0 +1,173 @@
+import groovy.json.JsonSlurperClassic
+import hudson.FilePath
+
+@NonCPS
+// reference: https://stackoverflow.com/questions/37864542/jenkins-pipeline-notserializableexception-groovy-json-internal-lazymap?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+def parse(def json){
+    new JsonSlurperClassic().parse(json)
+}
+
+if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == null){
+	properties([
+        parameters ([
+    	    booleanParam(defaultValue: false, description: "true: releaseBuild, incl. tag, publish to release repo, etc.", name: "releaseBuild"),
+		    string(defaultValue: "", description: "[optional] set release version: major.minor.patch, e.g. 2.4.1\n if unset current version without SNAPSHOT will be used", name: "overrideReleaseVersion")
+        ])
+	])
+}
+
+def generateTripleProperties(){
+	echo "=== Generating triple-properties from 'fcc-dev' so we can have a dummy-run of cfn-base"
+	checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/staging']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'aws-fcc-fccdev-config'], [$class: 'LocalBranch', localBranch: 'staging']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cred-ssh-svc_Git_CPLCD', url: 'ssh://git@gitserver.fairisaac.com:7999/cplcd/aws-fcc-fccdev-config.git']]]
+	script{
+		def tripleProperties=""
+		dir("aws-fcc-fccdev-config"){
+			tripleProperties=sh(returnStdout:true, script: "gradle -q -Pcftasks='' -PCFNGITTAGS='' dump")
+		}
+		dir ("src"){
+			writeFile file: "gradle.properties", text: tripleProperties.replace('\\','\\\\'), encoding: "UTF-8"
+		}
+	}
+}
+
+pipeline {
+    agent {
+		label("master")
+	}
+    parameters {
+		booleanParam(defaultValue: false, description: "true: also build autoupdate-sg-cloudfront artifact. (mode according to 'releaseBuild')", name: "includeCloudfront")
+		booleanParam(defaultValue: false, description: "true: skip syntax/dependency validation of gradle scripts. EMERGENCY USE ONLY.", name: "skipValidation")
+    }
+    stages{
+			stage ("prepare-validation"){
+				when{
+					expression { params.skipValidation != true }
+				}
+				steps{
+					generateTripleProperties()
+				}
+			}
+			stage ("validate-gradle"){
+				when{
+					expression { params.skipValidation != true }
+				}
+				steps{
+					dir ("src") {
+						echo "=== Running validation of cfn-base gradle files, see ${WORKSPACE}/gradleValidationResult.txt"
+						sh "gradle validateGradleSyntaxAndTaskDependencies > ${WORKSPACE}/gradleValidationResult.txt 2>&1"
+					}
+				}
+			}
+			stage ("validate-cloudformation"){
+				when{
+					expression { params.skipValidation != true }
+				}
+				steps{
+					dir ("src") {
+						echo "=== Running validation of cloudformation templates, see ${WORKSPACE}/cloudformationValidationResult.txt"
+						withEnv(['AWS_PROFILE=fcc-dev']) {
+							sh "gradle validateCloudFormationTemplates > ${WORKSPACE}/cloudformationValidationResult.txt 2>&1"
+						}
+					}
+				}
+			}
+
+            stage ("build") {
+                steps {
+                        withCredentials([usernamePassword(credentialsId: "NexusComplianceCloud", passwordVariable: "credNexusPass", usernameVariable: "credNexusUser")]) {
+							// IMPORTANT: generated triple-properties for fcc-dev used during validation MUST NOT be included in final package, so remove it here
+                            sh 'if [ -f $WORKSPACE/src/gradle.properties ] ; then rm -f $WORKSPACE/src/gradle.properties; fi'
+							sh "chmod u+x gradlew"
+                            script {
+                                if ("${params.releaseBuild}" == "true") {
+                                    // release
+                                    sh "./gradlew release -Prelease.releaseVersion=${params.overrideReleaseVersion} -Prelease.useAutomaticVersion=true -PnexusUser=${credNexusUser} -PnexusPass=${credNexusPass} --stacktrace --refresh-dependencies"
+                                } else {
+                                    // snapshot
+									sh "./gradlew publish -Pbranch=${env.BRANCH_NAME} -PnexusUser=${credNexusUser} -PnexusPass=${credNexusPass} --stacktrace --refresh-dependencies"
+                                }
+                            }
+
+						}
+				}
+			}
+			stage ("test-cfn-nag") {
+				steps{
+				script {
+						// don't fail the job on cfn-errors to enable post-processing the results
+						sh returnStatus: true, script: "set +x; ./gradlew testCfnNag"
+
+                        // read json-formatted cfn scan log
+						def fp = null
+						if (env['NODE_NAME'].equals("master")) {
+							fp = new FilePath(new File(env.WORKSPACE+ "/cfn_nag_results.log"))
+						} else {
+							fp = new FilePath(Jenkins.getInstance().getComputer(env.NODE_NAME).getChannel(), env.WORKSPACE + "/cfn_nag_results.log")
+						}
+ 					    json = parse(fp.toURI().toURL())
+
+                        // cfn warnings found -> build unstable
+						if (json.find{(it.file_results.failure_count==0 && it.file_results.violations.size() >0)} != null)
+							currentBuild.result = 'UNSTABLE'
+
+                        // cfn failures found -> build failed
+                        // FIXME: change this to actually fail the build once we're addressing/fixing the scan results
+						if (json.find{it.file_results.failure_count >0} != null)
+							currentBuild.result = 'UNSTABLE'
+					}
+				}
+			}
+			stage("build-lambda") {
+				when {
+					expression {
+						params.includeCloudfront == true
+
+					}
+				}
+				steps{
+                        withCredentials([usernamePassword(credentialsId: "NexusComplianceCloud", passwordVariable: "credNexusPass", usernameVariable: "credNexusUser")]) {
+							dir("src/tools/autoupdate-sg-cloudfront"){
+								script {
+									if ("${params.releaseBuild}" == "true") {
+										// release
+										sh "gradle release -Prelease.releaseVersion=${params.overrideReleaseVersion} -Prelease.useAutomaticVersion=true -PnexusUser=${credNexusUser} -PnexusPass=${credNexusPass} --stacktrace --refresh-dependencies"
+									} else {
+										// snapshot
+										sh "gradle publish -PnexusUser=${credNexusUser} -PnexusPass=${credNexusPass} --stacktrace --refresh-dependencies"
+									}
+								}
+							}
+						}
+				}
+			}
+    }
+
+    post {
+        always{
+			archiveArtifacts 'cfn_nag_results.log'
+			script{
+                if (params.skipValidation != true){
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'gradleValidationResult.txt'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'cloudformationValidationResult.txt'
+                }
+				currentBuild.result = currentBuild.result ?: 'SUCCESS'
+                notifyBitbucket(includeBuildNumberInKey: true, considerUnstableAsSuccess: true)
+            }
+		}
+		failure {
+            emailext attachLog: true, body: "Check build log (attached)\nBuild URL: ${env.BUILD_URL}",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+            subject: "Failed Job: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+        }
+        success {
+            script {
+                if (currentBuild.previousBuild != null && currentBuild.previousBuild.result != 'SUCCESS' && currentBuild.previousBuild.result != 'ABORTED') {
+                    emailext attachLog: true, body: "Build is back to normal!\nBuild URL: ${env.BUILD_URL}",
+					recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                    subject: "Fixed Job: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                }
+            }
+        }
+
+    }
+}
