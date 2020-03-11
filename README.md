@@ -2,7 +2,7 @@
 
 This Repository here has the collection of Books that you should read in order to have profound knowledge of Devops.The copyrights prevented me to upload the ebooks in here. However I have provided the links to buy these ebooks.
 
-** Below are the list of study materials.**
+**Below are the list of study materials.**
 ---
 
 1. Jenkins link : http://shop.oreilly.com/product/0636920010326.do
@@ -15,9 +15,9 @@ This Repository here has the collection of Books that you should read in order t
 8. AWS solution architect Professional link: https://www.amazon.com/AWS-Certified-Solutions-Architect-Professional/dp/1642499544
 9. The Phoenix Project link:https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B00AZRBLHO
 
-** FAQ  **
+**FAQ**
 ---
-
+## Continuous Integration (CI) ##
 + Continuous integration, continuous deployment, and continuous delivery are like vectors that have the  same direction, but different magnitude. Their goal is the same: make our software development and release process faster and more robust.
 + The key difference between the three is in the scope of automation applied. What gets people who are new to the field confused is that they are not mutually exclusive, but include each other, like Russian dolls.
 + Most developers start with Continuous Integration (CI), which is about everyone merging code changes to a central repository multiple times a day. Each merge triggers an automated build and testing sequence for the given project.Depending on the programming language, the program may first need to be compiled. Today there is also an increasing need to package the code in a Docker container. Automated tests then verify specific units of code, UI behavior, application performance, API reliability, and more. Together, all these steps are commonly referred to as the “Build” stage.CI acts as a safety net that lets developers prevent many issues before they reach users. As a result, developers ship code with more confidence, but not necessarily faster — the deployment process may still be manual, long, and error-prone. The best initial investment developers can make is to ensure that their automated test suite is comprehensive and stable enough that they feel safe to deploy every passed CI build to a staging, and later production environment, without a long manual QA (quality assurance) process.
@@ -30,7 +30,7 @@ This Repository here has the collection of Books that you should read in order t
 
 + Key Strengths of Continuous Integration (CI) Testing
 It’s no secret that testing the same test scripts every day can be a highly monotonous duty. Most development teams have found that the automation of test scripts wherever possible goes a long way. Not to mention, it also provides immediate feedback to the developer in mere minutes.
-    - Issue Resolution: When the automated test scripts do find an issue in the code, because the code  segments are small, the developers have been able to make quick work of issue identification and resolution.
+    - **Issue Resolution**: When the automated test scripts do find an issue in the code, because the code  segments are small, the developers have been able to make quick work of issue identification and resolution.
 
     - Phased Changeover: With small iterative changes, studies have confirmed that the migration from an old version of the software to a newer version is much easier because the users are eased into the changes, instead of having to learn a new version of the software all at once.
 
