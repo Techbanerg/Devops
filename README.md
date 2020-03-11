@@ -64,3 +64,44 @@ It’s no secret that testing the same test scripts every day can be a highly mo
     Testing has traditionally been a bottleneck in the development lifecycle. However, with CD, automated tests can be set up throughout the value stream to be as thorough as needed. This means the testing can be set up at the appropriate stages to address the progression of the code throughout the lifecycle. This can include automated unit tests, integration tests, regression tests, performance tests, and so forth. These can be set up and executed at their respective stations in the lifecycle providing a thorough testing framework to ensure quality. However, because the gate management and handoff from one state to the next are also fully automated, the progression of the code through the lifecycle occurs at light speed when compared to the legacy waterfall approach.
     - __Real World Experimentation__
     This model also allows for real-world experimentation, such as A/B testing, and allows for immediate consumer feedback. For example, if you need to change the location of a certain feature on a website, but you’re not sure of the best new location, you could make the change, monitor real-time customer usage, and make adjustments accordingly.
+
+**Continuous Delivery (CDE)**
++ Continuous delivery helps you build a refined version of the software by continuously implementing fixes and feedback until finally, you decide to push it out to production. In other words, continuous delivery involves human decision-making around what to release to the customers, and when. This forms the basis of the difference between the two.
+
++ Continuous delivery provides a competitive advantage for organizations that need their deployment decisions to be supported by authoritative human intelligence. It allows teams to deliver new features as they are ready, test working prototypes with real customers and build and evolve more stable, resilient systems.This, in turn, reduces the ongoing costs of evolving products and services, improve their quality and reduce team burnout.
+
++ There are some exceptions where the concepts of delivery and deployment aren’t as relevant as they are elsewhere; for instance, if you’ve contributed to a library or created an artifact, you are unlikely to deploy it on a running system. In other words, there is no deployment phase. You simply push your code into a repository for other applications to consume. Similarly, with most web apps, teams often don’t have separate build and deploy phases, which means there’s no apparent distinction between the delivery and deployment phase.
+
++ Being Agile
+Working in an Agile environment, you constantly learn from small pieces of work and thereby are able to make improvements before actual deployment.
+
+    - Planning for short cycles, such as 2-week Sprints, allows you to have a smaller bit to review and improve. By incorporating feedback loops along the way you are given important information that illuminates what works and what doesn't work in order to make corrections quickly. Being agile means you can have the infrastructure keep up with changes and match the application development cadence in order to avoid deploying on the "wrong" infrastructure.
+
+    - An Agile environment requires automating the testing phase so it happens fast and provides accurate feedback and can keep up with a Continuous Delivery pace. An agile response comes into play for issues that are reported through the help desk and other user input channels.
+
++ Continuous Delivery
+    - When you are striving for Continuous Delivery, where you can deploy any version at any time on any platform, it forces you to optimize the development process.
+
+    - It's a given that there is 10-30% technical debt on each Sprint. Technical debt includes such things as introducing defects or bugs and releasing a feature on infrastructure that hasn't been developed yet. It's difficult to be perfect. So, just realize that technical debt will occur and look for the feedback loops to give you the information necessary for corrections.
+
+    - Be sure that you get detailed feedback about how the test run went and how the process went at the end of the delivery cycle. These are some examples of questions you can answer in order to improve the process:
+
+    - Did you finish what you thought you would finish?
+    - Did you estimate properly?
+    - Did it take the same amount of time you thought it would take?
+    - Were the tasks done the actual tasks the team had to complete during Sprint execution?
+    - Were there a lot of tasks that had to be done that were not planned?
+    - In looking at Continuous Delivery, the preferred goal is to be ready and able to deploy 10 or more times per day. If you hit that goal, then deployment can be done every 45 minutes.
+
+    - Continuous Deployment
+    Continuous Deployment is actually deploying; however, it doesn't mean you must deploy to production or to the customer every time. For example, you can deploy to QA or to a deployment slot. A deployment slot is an A/B deployment method that allows you to get valuable information without inconveniencing users in the event that a defect leaks through a gap in the testing process. This takes some of the fear and anxiety out of the deployment.
+
+    - One way of deploying to a slot might be to offer an "opt-in" choice for the customer to get an updated version, providing you with a smaller group of users that can serve as a "beta." You always give these users the ability to go back to the former version if they want to do so.
+
+    - Continuous Improvement
+    Engaging in Continuous Improvement is an important part of Continuous Delivery and Continuous Deployment. Continuous Improvement requires that you amplify feedback loops by:
+
+    - Setting baselines. Be sure you have a starting point from which you can measure.
+    Monitoring important metrics. The key metric is deployment frequency of 10 or more times per day. There are some other side effect metrics like mean time to recover, mean time to change, and defect to new work ratio, but these aren't as important as the deployment frequency.
+    Identifying bottlenecks. Feedback loops during Sprints give you information on any congestion or blockages in the cycle.
+    Every time you find a gap in the process you have an opportunity to do a "gap fill" with a new test, new script, or new process. Create tests that test for defects. Set acceptance criteria based on input from the users. And, automate Acceptance Testing so that testing gets run on every commit to the source code.
