@@ -1,0 +1,45 @@
+- hosts: ansible-host-grp
+
+  gather_facts: yes
+  become: true
+  tasks:
+  - name: System details
+    debug: msg="{{ item }}"
+    with_items:
+    - "{{ ansible_distribution }}"
+    - "{{ ansible_distribution_version }}"
+    - "{{ ansible_distribution_major_version }}"
+
+  - name: Install Mysql Server and PIP
+    apt:
+      update_cache: yes
+      state: present
+      name: "{{ item }}"
+    with_items:
+     - mysql-server
+     - mysql-client
+     - python3-pip
+  - name: Start Mysql Server
+    service:
+       name: mysql
+       state: started
+       enabled: yes
+
+  - name: Install PIP module Pymysql
+    pip:
+       name: pymysql
+       state: present
+
+  - name: Create App Database
+    become: yes
+    become_user: root
+    mysql_db:
+       name:  appdata
+       state: present
+
+  - name: Create DB user
+    mysql_user:
+      name: bob
+      password: 12345
+      priv: '*.*:ALL'
+      state: present
